@@ -34,9 +34,9 @@ api.interceptors.response.use(
     if (!error.response) {
       console.error('[API] Serveur inaccessible', error.message || error);
       const path = typeof window !== 'undefined' ? window.location.pathname : '';
-      if (path && !path.startsWith('/erreur-serveur')) {
-        window.location.assign('/erreur-serveur');
-      }
+      // if (path && !path.startsWith('/erreur-serveur')) {
+      //   window.location.assign('/erreur-serveur');
+      // }
     }
     return Promise.reject(error);
   }
