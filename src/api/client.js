@@ -10,7 +10,7 @@ export const api = axios.create({
   timeout: 30000,
 });
 
-/** Jeton JWT depuis le stockage (clé alignée sur AuthContext : `hub_token`). */
+/** Jeton JWT depuis le stockage (clé alignée sur AuthContext : `hub_token`).shsshshhsh */
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('hub_token');
   if (token) {
