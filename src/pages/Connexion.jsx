@@ -15,6 +15,7 @@ export function Connexion() {
 
   async function soumettre(e) {
     e.preventDefault();
+    if (chargement) return;
     setErreur('');
     setChargement(true);
     try {
@@ -47,7 +48,19 @@ export function Connexion() {
             Une seule session active : une nouvelle connexion déconnecte l&apos;appareil précédent.
           </p>
 
-          <form onSubmit={soumettre} className="mt-8 space-y-5">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              void soumettre(e);
+            }}
+            onKeyDown={(e) => {
+              if (e.key !== 'Enter' || chargement) return;
+              if (e.target.tagName === 'BUTTON') return;
+              e.preventDefault();
+              void soumettre(e);
+            }}
+            className="mt-8 space-y-5"
+          >
             {erreur && (
               <div
                 className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800"
@@ -85,8 +98,9 @@ export function Connexion() {
               />
             </div>
             <button
-              type="submit"
+              type="button"
               disabled={chargement}
+              onClick={(e) => void soumettre(e)}
               className="w-full rounded-xl bg-sky-700 py-3 font-semibold text-white hover:bg-sky-800 disabled:opacity-60"
             >
               {chargement ? 'Connexion…' : 'Se connecter'}
